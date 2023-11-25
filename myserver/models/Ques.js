@@ -20,9 +20,9 @@ class Ques {
     }
   }
 
-  static async findAll(difficulty) {
+  static async findAll(difficulty, selectedSub) {
     try {
-      let sql = `SELECT * FROM ques where difficulty='${difficulty}'`;
+      let sql = `SELECT * FROM ques where LOWER(difficulty) = LOWER('${difficulty}') AND LOWER(subject) = LOWER('${selectedSub}')`;
       const [res, fields] = await db.query(sql);
       return res;
     } catch (err) {

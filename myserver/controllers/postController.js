@@ -30,8 +30,8 @@ function findCombination(arr, x) {
 
 exports.getEasy = async (req, res, next) => {
   try {
-    const { per } = req.query;
-    let allEasy = await Ques.findAll("easy");
+    const { per , selectedSub} = req.query;
+    let allEasy = await Ques.findAll("easy",selectedSub);
     allEasy = findCombination(allEasy, parseInt(per));
 
     if (allEasy.length === 0 && parseInt(per) !== 0) {
@@ -46,8 +46,8 @@ exports.getEasy = async (req, res, next) => {
 
 exports.getMedium = async (req, res, next) => {
   try {
-    const { per } = req.query;
-    let allMedium = await Ques.findAll("medium");
+    const { per, selectedSub } = req.query;
+    let allMedium = await Ques.findAll("medium",selectedSub);
     allMedium = findCombination(allMedium, parseInt(per));
 
     if (allMedium.length === 0 && parseInt(per) !== 0) {
@@ -62,8 +62,8 @@ exports.getMedium = async (req, res, next) => {
 
 exports.getHard = async (req, res, next) => {
   try {
-    const { per } = req.query;
-    let allHard = await Ques.findAll("hard");
+    const { per, selectedSub } = req.query;
+    let allHard = await Ques.findAll("hard",selectedSub);
     allHard = findCombination(allHard, parseInt(per));
 
     if (allHard.length === 0 && parseInt(per) !== 0) {

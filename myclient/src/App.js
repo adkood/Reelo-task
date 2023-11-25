@@ -13,6 +13,7 @@ function App() {
   const [easy, setEasy] = useState(0);
   const [medium, setMedium] = useState(0);
   const [hard, setHard] = useState(0);
+  const [selectedSub, setSelectedSub] = useState("");
 
   const [arr1, setArr1] = useState([]);
   const [arr2, setArr2] = useState([]);
@@ -44,11 +45,13 @@ function App() {
   };
 
   const generateHandler = async () => {
+    console.log(selectedSub);
     try {
       const sum = parseInt(easy) + parseInt(medium) + parseInt(hard);
       console.log("Sum of percentages:", sum);
 
       if (
+        (selectedSub === "Geography" || selectedSub === "Maths") &&
         parseInt(easy) >= 0 &&
         parseInt(medium) >= 0 &&
         parseInt(hard) >= 0 &&
@@ -60,9 +63,9 @@ function App() {
         const mediumMark = (parseInt(medium) / 100) * parseInt(tot);
         const hardMark = (parseInt(hard) / 100) * parseInt(tot);
 
-        const url1 = `http://localhost:3000/api/get-easy?per=${easyMark}`;
-        const url2 = `http://localhost:3000/api/get-medium?per=${mediumMark}`;
-        const url3 = `http://localhost:3000/api/get-hard?per=${hardMark}`;
+        const url1 = `http://localhost:3000/api/get-easy?per=${easyMark}&selectedSub=${selectedSub}`;
+        const url2 = `http://localhost:3000/api/get-medium?per=${mediumMark}&selectedSub=${selectedSub}`;
+        const url3 = `http://localhost:3000/api/get-hard?per=${hardMark}&selectedSub=${selectedSub}`;
 
         const [fetch1, fetch2, fetch3] = await Promise.all([
           axios.get(url1),
@@ -75,7 +78,7 @@ function App() {
 
         setLitmus(true);
       } else {
-        alert("Enter valid percentages of easy,medium and hard questions");
+        alert("Enter valid inputs to generate question paper!");
       }
     } catch (err) {
       alert("question bank is not strong enough for this configuration !");
@@ -146,11 +149,24 @@ function App() {
             placeholder="hard %"
             style={{ width: "15%", fontFamily: "monospace", height: "25px" }}
           ></input>
+
+          <select
+            id="sublist"
+            name="sublist"
+            style={{ width: "15%", fontFamily: "monospace", height: "30px" }}
+            onChange={(e) => {
+              setSelectedSub(e.target.value);
+            }}
+          >
+            <option>Select the Subject</option>
+            <option value="Geography">Geography</option>
+            <option value="Maths">Maths</option>
+          </select>
           <button
             onClick={generateHandler}
             style={{
-              marginLeft: "10px",
-              width: "15%",
+              margin: "11px",
+              width: "11%",
               fontFamily: "monospace",
               height: "30px",
             }}
