@@ -51,7 +51,7 @@ function App() {
       console.log("Sum of percentages:", sum);
 
       if (
-        (selectedSub === "Geography" || selectedSub === "Maths") &&
+        (selectedSub === "Geography" || selectedSub === "Science") &&
         parseInt(easy) >= 0 &&
         parseInt(medium) >= 0 &&
         parseInt(hard) >= 0 &&
@@ -160,7 +160,7 @@ function App() {
           >
             <option>Select the Subject</option>
             <option value="Geography">Geography</option>
-            <option value="Maths">Maths</option>
+            <option value="Science">Science</option>
           </select>
           <button
             onClick={generateHandler}
